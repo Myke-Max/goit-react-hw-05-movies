@@ -25,5 +25,5 @@ export function getInformationAboutTheCast(movieId) {
 }
 
 export function getReviewsMovie(movieId) {
-  return getMovies(`${BASE_URL}movie/${movieId}/reviews?api_key=${API_KEY}>&language=en-US&page=1`);
+  return getMovies(`${BASE_URL}movie/${movieId}/reviews?api_key=${API_KEY}&language=en-US&page=1`);
 }

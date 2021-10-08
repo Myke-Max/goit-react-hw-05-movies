@@ -1,5 +1,8 @@
 .nav {
-  margin-top: 15px;
+  background: #ff6b08;
+  padding: 15px;
+  height: 50px;
+  width: 100%;
 }
 .link {
   font-size: 20px;
