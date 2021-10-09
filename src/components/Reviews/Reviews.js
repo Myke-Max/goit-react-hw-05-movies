@@ -4,18 +4,18 @@ import { useParams } from 'react-router-dom';
 import s from './Reviews.module.css';
 
 export default function Reviews() {
-  const [reviews, setReviews] = useState('');
+  const [reviews, setReviews] = useState(null);
   const { movieId } = useParams();
 
   useEffect(() => {
     movieAPI.getReviewsMovie(movieId).then(({ results }) => {
       setReviews(results);
-      console.log(results.map(author => console.log(author)));
     });
   }, [movieId]);
 
   return (
     <>
+      {reviews?.length === 0 && <h2>No reviews for this movie</h2>}
       {reviews &&
         reviews.map(review => {
           return (

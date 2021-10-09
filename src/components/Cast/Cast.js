@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import s from './Cast.module.css';
 
 export default function Cast() {
-  const [cast, setCast] = useState('');
+  const [cast, setCast] = useState(null);
 
   const { movieId } = useParams();
 
@@ -18,6 +18,7 @@ export default function Cast() {
 
   return (
     <>
+      {cast?.length === 0 && <h2>Actors not found,sorry</h2>}
       {cast &&
         cast.map(author => {
           return (

@@ -34,13 +34,7 @@ export default function HomePage() {
                 <div className={s.card__info__box}>
                   <h2 className={s.card__name}>{movie.title}</h2>
                   <div className={s.result__wrapper}>
-                    <div className={s.card__details}>
-                      <ul className={`${s.genres__list} ${s.list}`}>
-                        <li className={s.genres__item}>
-                          <p className={s.genres__text}></p>
-                        </li>
-                      </ul>
-                    </div>
+                    <div className={s.card__details}></div>
                     <p className={s.card__text}>{movie.release_date}</p>
                   </div>
                 </div>

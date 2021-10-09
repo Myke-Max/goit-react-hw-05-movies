@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { useParams, Route, NavLink, useRouteMatch } from 'react-router-dom';
-import Cast from '../Cast';
-import Reviews from '../Reviews';
+// import Cast from '../Cast';
+// import Reviews from '../Reviews';
 import * as movieAPI from '../movieAPI/movieAPI';
 import s from './MovieDetailsPage.module.scss';
 
@@ -13,10 +13,13 @@ export default function MovieDetailPage() {
 
   const IMG_URL = 'https://image.tmdb.org/t/p/w500';
 
+  const Cast = lazy(() => import('../Cast' /*webpackChunkName "Cast" */));
+  const Reviews = lazy(() => import('../Reviews' /*webpackChunkName "Reviews" */));
+
   useEffect(() => {
     movieAPI.getMoviesDetail(movieId).then(setMovieDetails);
   }, [movieId]);
-  console.log(movieDetails);
+  console.log();
   return (
     <>
       {/* Разметка фильма */}
@@ -69,12 +72,14 @@ export default function MovieDetailPage() {
           Review
         </NavLink>
         <NavLink to={`${url}/cast`}>Cast</NavLink>
-        <Route exact path="/movies/:movieId/reviews">
-          <Reviews />
-        </Route>
-        <Route exact path="/movies/:movieId/cast">
-          <Cast />
-        </Route>
+        <Suspense fallback="Loading">
+          <Route exact path="/movies/:movieId/reviews">
+            <Reviews />
+          </Route>
+          <Route exact path="/movies/:movieId/cast">
+            <Cast />
+          </Route>
+        </Suspense>
       </div>
     </>
   );
