@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
+import * as movieAPI from '../../service';
 import SearchBar from '../../components/SearchBar';
 import { Link, useRouteMatch, useLocation, useHistory } from 'react-router-dom';
 import s from './MoviesPage.module.scss';
-import * as movieAPI from '../../service';
+import { BiArrowBack } from 'react-icons/bi';
 
 export default function MoviesPage() {
   const [queryValue, setQueryValue] = useState(null);
@@ -31,9 +32,16 @@ export default function MoviesPage() {
       search: `query=${inputValue}`,
     });
   }
+
+  const goBack = () => history.push(location?.state?.from ?? '/');
   return (
     <>
       <SearchBar onSubmit={handleQuerySubmit} />
+      {queryValue && (
+        <button className={s.onBack} onClick={goBack}>
+          <BiArrowBack />
+        </button>
+      )}
       <ul className={`${s.card__list} ${s.list}`}>
         {movies &&
           movies.map(movie => (
