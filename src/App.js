@@ -9,13 +9,11 @@ import AppBar from './components/AppBar';
 import './App.css';
 
 function App() {
-  const HomePage = lazy(() => import('./components/HomePage' /*webpackChunkName "HomePage" */));
+  const HomePage = lazy(() => import('./views/HomePage' /*webpackChunkName "HomePage" */));
 
-  const MoviesPage = lazy(() =>
-    import('./components/MoviesPage' /*webpackChunkName "MoviesPage" */),
-  );
+  const MoviesPage = lazy(() => import('./views/MoviesPage' /*webpackChunkName "MoviesPage" */));
   const MovieDetailPage = lazy(() =>
-    import('./components/MovieDetailsPage' /*webpackChunkName "MovieDetailPage" */),
+    import('./views/MovieDetailsPage' /*webpackChunkName "MovieDetailPage" */),
   );
 
   return (

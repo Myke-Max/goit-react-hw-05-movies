@@ -1,16 +1,26 @@
 import { useState, useEffect, lazy, Suspense } from 'react';
-import { useParams, Route, NavLink, useRouteMatch } from 'react-router-dom';
+import {
+  useParams,
+  Route,
+  NavLink,
+  useRouteMatch,
+  useHistory,
+  useLocation,
+} from 'react-router-dom';
 // import Cast from '../Cast';
 // import Reviews from '../Reviews';
-import * as movieAPI from '../movieAPI/movieAPI';
+import * as movieAPI from '../../service';
 import s from './MovieDetailsPage.module.scss';
+import { BiArrowBack } from 'react-icons/bi';
 
 // import s from './MovieDetailsPage.module.css';
 export default function MovieDetailPage() {
   const [movieDetails, setMovieDetails] = useState(null);
   const { url } = useRouteMatch();
+  const location = useLocation();
   const { movieId } = useParams();
-
+  const history = useHistory();
+  console.log('detail', location.state);
   const IMG_URL = 'https://image.tmdb.org/t/p/w500';
 
   const Cast = lazy(() => import('../Cast' /*webpackChunkName "Cast" */));
@@ -19,10 +29,17 @@ export default function MovieDetailPage() {
   useEffect(() => {
     movieAPI.getMoviesDetail(movieId).then(setMovieDetails);
   }, [movieId]);
-  console.log();
+
+  const goBack = () => history.push(location?.state?.from ?? '/');
+
   return (
     <>
       {/* Разметка фильма */}
+      {
+        <button className={s.onBack} onClick={goBack}>
+          <BiArrowBack />
+        </button>
+      }
       {movieDetails && (
         <div className={s.modal__box}>
           <div className={s.modal__box_img}>

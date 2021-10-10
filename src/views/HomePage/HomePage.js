@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import { Link, useRouteMatch } from 'react-router-dom';
+import { Link, useRouteMatch, useLocation } from 'react-router-dom';
 import s from './HomePage.module.scss';
-import * as movieAPI from '../movieAPI/movieAPI';
+import * as movieAPI from '../../service';
 
 export default function HomePage() {
   const { url } = useRouteMatch();
-
+  const location = useLocation();
   const [popularMovie, setPopularMovie] = useState(null);
 
   const IMG_URL = 'https://image.tmdb.org/t/p/w500';
@@ -15,13 +15,19 @@ export default function HomePage() {
       setPopularMovie(results);
     });
   }, []);
-
   return (
     <ul className={`${s.card__list} ${s.list}`}>
       {popularMovie &&
         popularMovie.map(movie => (
           <li className={s.result__item} key={movie.id}>
-            <Link to={`${url}movies/${movie.id}`}>
+            <Link
+              to={{
+                pathname: `${url}movies/${movie.id}`,
+                state: {
+                  from: location,
+                },
+              }}
+            >
               <div className={s.card}>
                 <div className={s.card__image__box}>
                   <img
